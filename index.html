@@ -3,8 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PlanForge -- Professional Business Plans, Delivered Fast</title>
     <meta name="description" content="Investor-ready business plans written from scratch. Delivered in 48 hours. From $299 AUD.">
@@ -12,534 +10,311 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
         :root {
-            --bg-primary: #0A0A0B;
-            --bg-secondary: #111113;
-            --bg-tertiary: #1A1A1E;
-            --bg-hover: #232328;
-            --border-subtle: #222225;
-            --border-default: #2E2E32;
-            --text-primary: #EDEDEF;
-            --text-secondary: #A0A0A6;
-            --text-tertiary: #6E6E76;
-            --accent: #6C5CE7;
-            --accent-hover: #7C6FF7;
-            --accent-glow: rgba(108, 92, 231, 0.15);
-            --accent-glow-strong: rgba(108, 92, 231, 0.3);
-            --green: #22C55E;
-            --green-glow: rgba(34, 197, 94, 0.12);
-            --amber: #F59E0B;
-            --radius-sm: 8px;
-            --radius-md: 12px;
-            --radius-lg: 16px;
-            --radius-xl: 20px;
-            --radius-full: 999px;
-            --transition: 0.2s ease;
+            --bg: #050507; --bg2: #0c0c10; --bg3: #131318; --bg4: #1b1b22;
+            --border: rgba(255,255,255,0.06); --border-h: rgba(255,255,255,0.1);
+            --t1: #f4f4f5; --t2: #a1a1aa; --t3: #63636e;
+            --acc: #7c6cf6; --acc2: #9b8afb; --acc-g: rgba(124,108,246,0.12);
+            --grn: #34d399; --grn-g: rgba(52,211,153,0.1);
+            --amb: #fbbf24;
+            --r: 14px; --rs: 8px; --rf: 999px;
         }
-
         html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', system-ui, sans-serif; color: var(--t2); background: var(--bg); line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+        .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+        @media(min-width:768px) { .wrap { padding: 0 48px; } }
 
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            color: var(--text-secondary);
-            line-height: 1.6;
-            background: var(--bg-primary);
-            -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
-        }
+        /* --- BG --- */
+        .aurora { position: fixed; inset: 0; z-index: -1; overflow: hidden; }
+        .aurora i { position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.2; }
+        .aurora i:nth-child(1) { width: 600px; height: 600px; background: #7c6cf6; top: -20%; left: -10%; animation: au 30s ease-in-out infinite; }
+        .aurora i:nth-child(2) { width: 500px; height: 500px; background: #3b82f6; bottom: -15%; right: -8%; animation: au 30s ease-in-out infinite reverse; }
+        .aurora i:nth-child(3) { width: 350px; height: 350px; background: #a855f7; top: 35%; left: 55%; animation: au 25s ease-in-out infinite 5s; }
+        @keyframes au { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(60px,-40px) scale(1.1)} 66%{transform:translate(-40px,50px) scale(0.9)} }
+        .grain { position: fixed; inset: 0; z-index: -1; opacity: 0.018; background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-        @media (min-width: 768px) { .container { padding: 0 40px; } }
-        @media (min-width: 1024px) { .container { padding: 0 64px; } }
+        /* --- REVEAL --- */
+        [data-r] { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+        [data-r].v { opacity: 1; transform: none; }
+        [data-r="1"] { transition-delay: .1s } [data-r="2"] { transition-delay: .2s } [data-r="3"] { transition-delay: .3s } [data-r="4"] { transition-delay: .4s }
 
-        /* NOISE + GRADIENT BG */
-        .bg-effects { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
-        .bg-orb {
-            position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.3;
-            animation: drift 25s ease-in-out infinite;
-        }
-        .bg-orb:nth-child(1) { width: 500px; height: 500px; background: #6C5CE7; top: -15%; left: -10%; }
-        .bg-orb:nth-child(2) { width: 400px; height: 400px; background: #3B82F6; bottom: -10%; right: -5%; animation-delay: -8s; }
-        .bg-orb:nth-child(3) { width: 300px; height: 300px; background: #7C3AED; top: 40%; left: 50%; animation-delay: -16s; }
-        @keyframes drift {
-            0%, 100% { transform: translate(0, 0); }
-            33% { transform: translate(40px, -25px); }
-            66% { transform: translate(-30px, 35px); }
-        }
-        .bg-noise {
-            position: absolute; inset: 0; opacity: 0.025;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-        }
+        /* --- NAV --- */
+        header { position: fixed; top: 0; left: 0; right: 0; z-index: 99; height: 60px; display: flex; align-items: center; background: rgba(5,5,7,0.5); backdrop-filter: blur(20px); border-bottom: 1px solid transparent; transition: .3s; }
+        header.s { background: rgba(5,5,7,0.9); border-bottom-color: var(--border); }
+        header .wrap { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+        .logo { font-size: 1.2rem; font-weight: 800; color: var(--t1); letter-spacing: -.5px; }
+        .logo b { color: var(--acc); }
+        .hnav { display: flex; align-items: center; gap: 4px; }
+        .hnav a { font-size: 13px; font-weight: 500; color: var(--t3); text-decoration: none; padding: 7px 14px; border-radius: var(--rs); transition: .2s; }
+        .hnav a:hover { color: var(--t1); background: rgba(255,255,255,.04); }
+        .hnav .hcta { background: var(--acc); color: #fff; font-weight: 600; margin-left: 6px; }
+        .hnav .hcta:hover { background: var(--acc2); }
+        @media(max-width:700px) { .hnav a:not(.hcta) { display: none; } }
 
-        /* ANIMATIONS */
-        .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
-        .reveal.visible { opacity: 1; transform: translateY(0); }
-        .reveal.d1 { transition-delay: 0.1s; }
-        .reveal.d2 { transition-delay: 0.2s; }
-        .reveal.d3 { transition-delay: 0.3s; }
-        .reveal.d4 { transition-delay: 0.4s; }
+        /* --- HERO --- */
+        .hero { min-height: 100svh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 140px 24px 80px; position: relative; }
+        .pill { display: inline-flex; align-items: center; gap: 10px; padding: 6px 18px; border-radius: var(--rf); border: 1px solid var(--border); background: var(--bg2); font-size: 13px; font-weight: 500; color: var(--t2); margin-bottom: 36px; }
+        .pill i { width: 7px; height: 7px; border-radius: 50%; background: var(--grn); animation: blink 2s ease-in-out infinite; }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+        .hero h1 { font-size: clamp(2.6rem,6vw,5rem); font-weight: 900; line-height: 1.02; letter-spacing: -.04em; max-width: 820px; margin-bottom: 28px; }
+        .hero h1 span { background: linear-gradient(135deg, var(--t1) 40%, var(--t3) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero h1 em { font-style: normal; background: linear-gradient(135deg, var(--acc) 0%, var(--acc2) 50%, #60a5fa 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: shimText 6s ease-in-out infinite; background-size: 200% auto; }
+        @keyframes shimText { 0%{background-position:0% center} 50%{background-position:100% center} 100%{background-position:0% center} }
+        .hero p { font-size: clamp(1rem,1.4vw,1.2rem); max-width: 520px; line-height: 1.75; margin-bottom: 44px; }
+        .btns { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+        .bp { display: inline-flex; align-items: center; gap: 8px; padding: 13px 30px; font-size: 15px; font-weight: 600; color: #fff; background: var(--acc); border: none; border-radius: var(--r); text-decoration: none; cursor: pointer; transition: .25s; position: relative; overflow: hidden; }
+        .bp::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(115deg, transparent 40%, rgba(255,255,255,.15) 50%, transparent 60%); transition: .5s; transform: translateX(-100%); }
+        .bp:hover::before { transform: translateX(100%); }
+        .bp:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(124,108,246,.35); }
+        .bp svg { transition: transform .2s; } .bp:hover svg { transform: translateX(3px); }
+        .bs { display: inline-flex; align-items: center; gap: 8px; padding: 13px 30px; font-size: 15px; font-weight: 500; color: var(--t1); background: rgba(255,255,255,.04); border: 1px solid var(--border); border-radius: var(--r); text-decoration: none; transition: .2s; }
+        .bs:hover { background: rgba(255,255,255,.07); border-color: var(--border-h); }
 
-        /* NAV */
-        nav {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-            height: 64px; display: flex; align-items: center;
-            background: rgba(10, 10, 11, 0.6);
-            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(255,255,255,0.04);
-            transition: background 0.3s;
-        }
-        nav.scrolled { background: rgba(10, 10, 11, 0.9); border-bottom-color: var(--border-subtle); }
-        nav .container { display: flex; justify-content: space-between; align-items: center; width: 100%; }
-        .logo { font-size: 1.25rem; font-weight: 800; color: var(--text-primary); letter-spacing: -0.5px; }
-        .logo span { color: var(--accent); }
-        .nav-links { display: flex; align-items: center; gap: 8px; }
-        .nav-link {
-            font-size: 14px; font-weight: 500; color: var(--text-tertiary);
-            text-decoration: none; padding: 8px 14px; border-radius: var(--radius-sm);
-            transition: color var(--transition), background var(--transition);
-        }
-        .nav-link:hover { color: var(--text-primary); background: rgba(255,255,255,0.04); }
-        .nav-cta {
-            font-size: 14px; font-weight: 600; color: #fff; background: var(--accent);
-            padding: 8px 20px; border-radius: var(--radius-sm); text-decoration: none;
-            transition: all var(--transition); margin-left: 8px;
-        }
-        .nav-cta:hover { background: var(--accent-hover); transform: translateY(-1px); }
+        /* --- MARQUEE TRUST --- */
+        .marquee-wrap { padding: 44px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); overflow: hidden; }
+        .marquee-label { text-align: center; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--t3); margin-bottom: 20px; }
+        .marquee { display: flex; gap: 48px; animation: scroll 20s linear infinite; width: max-content; }
+        .marquee span { font-size: 14px; font-weight: 600; color: var(--t3); white-space: nowrap; display: flex; align-items: center; gap: 8px; }
+        .marquee span svg { opacity: .4; }
+        @keyframes scroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
 
-        /* HERO */
-        .hero {
-            min-height: 100vh; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; text-align: center;
-            padding: 140px 24px 100px; position: relative;
-        }
-        .hero-badge {
-            display: inline-flex; align-items: center; gap: 10px;
-            padding: 7px 18px; border-radius: var(--radius-full);
-            border: 1px solid var(--border-default); background: var(--bg-secondary);
-            font-size: 13px; font-weight: 500; color: var(--text-secondary);
-            margin-bottom: 36px;
-        }
-        .hero-badge .pulse-dot {
-            width: 8px; height: 8px; border-radius: 50%; background: var(--green);
-            animation: pulse 2s ease-in-out infinite;
-        }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-        .hero h1 {
-            font-size: clamp(2.5rem, 5.5vw, 4.5rem); font-weight: 800;
-            line-height: 1.05; letter-spacing: -0.03em; color: var(--text-primary);
-            max-width: 800px; margin-bottom: 24px;
-        }
-        .hero h1 .gradient-text {
-            background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-tertiary) 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-        }
-        .hero .subtitle {
-            font-size: clamp(1rem, 1.5vw, 1.2rem); color: var(--text-secondary);
-            max-width: 540px; line-height: 1.7; margin-bottom: 44px;
-        }
-        .cta-group { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
-        .btn-primary {
-            display: inline-flex; align-items: center; gap: 8px;
-            padding: 14px 32px; font-size: 15px; font-weight: 600;
-            color: #fff; background: var(--accent); border: none; border-radius: var(--radius-md);
-            text-decoration: none; cursor: pointer;
-            transition: all 0.25s ease;
-            box-shadow: 0 0 0 0 transparent;
-        }
-        .btn-primary:hover {
-            background: var(--accent-hover); transform: translateY(-2px);
-            box-shadow: 0 8px 30px -5px var(--accent-glow-strong);
-        }
-        .btn-primary svg { transition: transform var(--transition); }
-        .btn-primary:hover svg { transform: translateX(3px); }
-        .btn-secondary {
-            display: inline-flex; align-items: center; gap: 8px;
-            padding: 14px 32px; font-size: 15px; font-weight: 500;
-            color: var(--text-primary); background: transparent;
-            border: 1px solid var(--border-default); border-radius: var(--radius-md);
-            text-decoration: none; cursor: pointer; transition: all var(--transition);
-        }
-        .btn-secondary:hover { border-color: var(--text-tertiary); background: rgba(255,255,255,0.03); }
+        /* --- STATS --- */
+        .stats { padding: 72px 0; }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .stat { text-align: center; padding: 28px 16px; border-radius: var(--r); border: 1px solid var(--border); background: var(--bg2); transition: .3s; }
+        .stat:hover { border-color: var(--border-h); transform: translateY(-3px); }
+        .stat .num { font-size: 2.4rem; font-weight: 900; font-family: 'JetBrains Mono', monospace; color: var(--t1); letter-spacing: -.03em; }
+        .stat .num b { color: var(--acc); }
+        .stat .lab { font-size: 13px; color: var(--t3); margin-top: 4px; }
 
-        /* TRUST BAR */
-        .trust-bar {
-            padding: 52px 0; border-top: 1px solid var(--border-subtle);
-            border-bottom: 1px solid var(--border-subtle);
-        }
-        .trust-label {
-            text-align: center; font-size: 12px; font-weight: 600;
-            text-transform: uppercase; letter-spacing: 0.06em;
-            color: var(--text-tertiary); margin-bottom: 24px;
-        }
-        .trust-items {
-            display: flex; justify-content: center; align-items: center;
-            gap: 40px; flex-wrap: wrap;
-        }
-        .trust-item {
-            font-size: 14px; font-weight: 600; color: var(--text-tertiary);
-            display: flex; align-items: center; gap: 8px;
-        }
-        .trust-item svg { opacity: 0.5; }
+        /* --- SECTIONS --- */
+        .sec { padding: 100px 0; }
+        .sec.alt { background: var(--bg2); }
+        .sh { margin-bottom: 52px; }
+        .sh.c { text-align: center; }
+        .sl { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--acc); margin-bottom: 12px; }
+        .st { font-size: clamp(1.8rem,3.5vw,2.6rem); font-weight: 800; color: var(--t1); letter-spacing: -.025em; line-height: 1.15; margin-bottom: 12px; }
+        .ss { font-size: 1rem; max-width: 540px; line-height: 1.75; }
+        .sh.c .ss { margin: 0 auto; }
 
-        /* SECTION HEADERS */
-        .section { padding: 96px 0; }
-        .section-label {
-            font-size: 12px; font-weight: 700; text-transform: uppercase;
-            letter-spacing: 0.06em; color: var(--accent); margin-bottom: 14px;
+        /* --- GLASS CARDS --- */
+        .glass-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+        .glass {
+            padding: 32px; border-radius: var(--r);
+            background: rgba(255,255,255,.02); backdrop-filter: blur(12px);
+            border: 1px solid var(--border); transition: .3s; position: relative; overflow: hidden;
         }
-        .section-title {
-            font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 800;
-            color: var(--text-primary); letter-spacing: -0.025em; margin-bottom: 14px; line-height: 1.15;
-        }
-        .section-subtitle { color: var(--text-secondary); font-size: 1.05rem; max-width: 560px; line-height: 1.7; }
-        .section-header { margin-bottom: 56px; }
-        .section-header.center { text-align: center; }
-        .section-header.center .section-subtitle { margin: 0 auto; }
+        .glass::before { content: ''; position: absolute; inset: 0; border-radius: var(--r); padding: 1px; background: linear-gradient(135deg, rgba(124,108,246,.2), transparent 50%); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0; transition: .3s; pointer-events: none; }
+        .glass:hover { transform: translateY(-4px); border-color: rgba(124,108,246,.15); }
+        .glass:hover::before { opacity: 1; }
+        .glass .ic { width: 44px; height: 44px; border-radius: 10px; background: var(--acc-g); display: flex; align-items: center; justify-content: center; margin-bottom: 18px; color: var(--acc); }
+        .glass h3 { font-size: 1.05rem; font-weight: 700; color: var(--t1); margin-bottom: 8px; }
+        .glass p { font-size: .88rem; line-height: 1.65; }
 
-        /* PROBLEM SECTION */
-        .problem-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
-        .problem-card {
-            padding: 32px; border-radius: var(--radius-lg);
-            border: 1px solid var(--border-subtle); background: var(--bg-secondary);
-            transition: all 0.3s ease; position: relative; overflow: hidden;
-        }
-        .problem-card::after {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-            background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: 0;
-            transition: opacity 0.3s;
-        }
-        .problem-card:hover { border-color: var(--border-default); transform: translateY(-4px); }
-        .problem-card:hover::after { opacity: 1; }
-        .problem-icon {
-            width: 48px; height: 48px; border-radius: var(--radius-md);
-            background: var(--accent-glow); display: flex; align-items: center;
-            justify-content: center; margin-bottom: 20px; color: var(--accent);
-        }
-        .problem-card h3 { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; }
-        .problem-card p { font-size: 0.9rem; line-height: 1.65; }
+        /* --- BENTO --- */
+        .bento { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+        .bento > div { padding: 32px; border-radius: var(--r); border: 1px solid var(--border); background: var(--bg3); transition: .3s; }
+        .bento > div:hover { border-color: var(--border-h); }
+        .bento .w2 { grid-column: span 2; }
+        .bento .tag { display: inline-block; padding: 2px 9px; border-radius: 5px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 14px; }
+        .tag-b { background: rgba(59,130,246,.1); color: #60a5fa; }
+        .tag-p { background: var(--acc-g); color: var(--acc2); }
+        .tag-g { background: var(--grn-g); color: var(--grn); }
+        .tag-a { background: rgba(251,191,36,.1); color: var(--amb); }
+        .bento h3 { font-size: 1.05rem; font-weight: 700; color: var(--t1); margin-bottom: 6px; }
+        .bento p { font-size: .88rem; line-height: 1.65; }
+        .bento ul { list-style: none; margin-top: 14px; }
+        .bento ul li { display: flex; align-items: center; gap: 8px; padding: 4px 0; font-size: .86rem; color: var(--t1); }
+        .bento ul li svg { flex-shrink: 0; color: var(--acc2); }
 
-        /* BENTO FEATURES */
-        .bento { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-        .bento-card {
-            padding: 36px; border-radius: var(--radius-lg);
-            border: 1px solid var(--border-subtle); background: var(--bg-secondary);
-            transition: all 0.3s ease;
-        }
-        .bento-card:hover { border-color: rgba(108,92,231,0.25); box-shadow: 0 0 40px rgba(108,92,231,0.06); }
-        .bento-card.span-2 { grid-column: span 2; }
-        .bento-tag {
-            display: inline-block; padding: 3px 10px; border-radius: 6px;
-            font-size: 11px; font-weight: 700; text-transform: uppercase;
-            letter-spacing: 0.05em; margin-bottom: 16px;
-        }
-        .bento-tag.blue { background: rgba(59,130,246,0.12); color: #60A5FA; }
-        .bento-tag.purple { background: var(--accent-glow); color: #A78BFA; }
-        .bento-tag.green { background: var(--green-glow); color: var(--green); }
-        .bento-tag.amber { background: rgba(245,158,11,0.12); color: var(--amber); }
-        .bento-card h3 { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; }
-        .bento-card p { font-size: 0.9rem; line-height: 1.65; }
-        .bento-list { margin-top: 16px; list-style: none; }
-        .bento-list li {
-            padding: 5px 0; font-size: 0.88rem; color: var(--text-primary);
-            display: flex; align-items: center; gap: 10px;
-        }
-        .bento-list li svg { flex-shrink: 0; color: var(--accent); }
+        /* --- TIMELINE --- */
+        .tl { max-width: 600px; margin: 0 auto; position: relative; }
+        .tl::before { content: ''; position: absolute; left: 22px; top: 0; bottom: 0; width: 2px; background: linear-gradient(180deg, var(--acc), var(--border)); }
+        .tl-s { display: flex; gap: 26px; padding: 24px 0; position: relative; }
+        .tl-d { flex-shrink: 0; width: 46px; height: 46px; border-radius: 50%; background: var(--bg); border: 2px solid var(--acc); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: .95rem; color: var(--acc); font-family: 'JetBrains Mono', monospace; z-index: 1; }
+        .tl-c h3 { font-size: 1rem; font-weight: 700; color: var(--t1); margin-bottom: 5px; }
+        .tl-c p { font-size: .88rem; line-height: 1.65; }
+        .tl-t { display: inline-block; margin-top: 8px; padding: 2px 10px; border-radius: 5px; font-size: 11px; font-weight: 600; background: var(--acc-g); color: var(--acc2); }
 
-        /* TIMELINE */
-        .timeline { max-width: 640px; margin: 0 auto; position: relative; }
-        .timeline::before {
-            content: ''; position: absolute; left: 23px; top: 0; bottom: 0;
-            width: 2px; background: linear-gradient(180deg, var(--accent), var(--border-subtle));
-        }
-        .tl-step { display: flex; gap: 28px; padding: 28px 0; position: relative; }
-        .tl-dot {
-            flex-shrink: 0; width: 48px; height: 48px; border-radius: 50%;
-            background: var(--bg-secondary); border: 2px solid var(--accent);
-            display: flex; align-items: center; justify-content: center;
-            font-weight: 800; font-size: 1rem; color: var(--accent);
-            font-family: 'JetBrains Mono', monospace; z-index: 1;
-        }
-        .tl-content h3 { font-size: 1.05rem; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; }
-        .tl-content p { font-size: 0.9rem; line-height: 1.65; }
-        .tl-tag {
-            display: inline-block; margin-top: 10px; padding: 3px 10px;
-            border-radius: 6px; font-size: 12px; font-weight: 600;
-            background: var(--accent-glow); color: var(--accent);
-        }
+        /* --- PRICING --- */
+        .price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: start; }
+        .pc { padding: 32px 26px; border-radius: 18px; border: 1px solid var(--border); background: var(--bg2); transition: .3s; position: relative; }
+        .pc:hover { transform: translateY(-4px); border-color: var(--border-h); }
+        .pc.pop { border-color: var(--acc); box-shadow: 0 0 60px rgba(124,108,246,.1), inset 0 1px 0 rgba(124,108,246,.2); transform: scale(1.02); }
+        .pc.pop:hover { transform: scale(1.02) translateY(-4px); }
+        .pop-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, var(--acc), #60a5fa); color: #fff; padding: 4px 16px; border-radius: var(--rf); font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+        .pc .tier { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--t3); margin-bottom: 10px; }
+        .pc .amt { font-size: 2.8rem; font-weight: 900; color: var(--t1); font-family: 'JetBrains Mono', monospace; letter-spacing: -.03em; }
+        .pc .per { font-size: 12px; color: var(--t3); margin-bottom: 18px; }
+        .pc .desc { font-size: .88rem; line-height: 1.6; margin-bottom: 22px; padding-bottom: 22px; border-bottom: 1px solid var(--border); }
+        .pc ul { list-style: none; margin-bottom: 26px; }
+        .pc ul li { display: flex; align-items: flex-start; gap: 9px; padding: 7px 0; font-size: .86rem; color: var(--t1); }
+        .pc ul li svg { flex-shrink: 0; margin-top: 2px; color: var(--grn); }
+        .pbtn { display: block; width: 100%; padding: 12px; text-align: center; border-radius: var(--r); font-weight: 600; font-size: .88rem; text-decoration: none; transition: .25s; cursor: pointer; border: 1px solid var(--border); color: var(--t2); background: transparent; font-family: inherit; }
+        .pbtn:hover { background: var(--bg4); color: var(--t1); border-color: var(--border-h); }
+        .pc.pop .pbtn { background: var(--acc); border-color: var(--acc); color: #fff; box-shadow: 0 0 20px var(--acc-g); }
+        .pc.pop .pbtn:hover { background: var(--acc2); }
 
-        /* PRICING */
-        .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start; }
-        .price-card {
-            padding: 36px 28px; border-radius: var(--radius-xl);
-            border: 1px solid var(--border-subtle); background: var(--bg-secondary);
-            transition: all 0.3s ease; position: relative;
-        }
-        .price-card:hover { border-color: var(--border-default); transform: translateY(-4px); }
-        .price-card.featured {
-            border-color: var(--accent);
-            box-shadow: 0 0 50px var(--accent-glow);
-            transform: scale(1.02);
-        }
-        .price-card.featured:hover { transform: scale(1.02) translateY(-4px); }
-        .featured-badge {
-            position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
-            background: var(--accent); color: #fff; padding: 5px 18px;
-            border-radius: var(--radius-full); font-size: 11px; font-weight: 700;
-            letter-spacing: 0.08em; text-transform: uppercase;
-        }
-        .price-tier {
-            font-size: 13px; font-weight: 600; text-transform: uppercase;
-            letter-spacing: 0.06em; color: var(--text-tertiary); margin-bottom: 10px;
-        }
-        .price-amount {
-            font-size: 3rem; font-weight: 900; color: var(--text-primary);
-            font-family: 'JetBrains Mono', monospace; letter-spacing: -0.03em; margin-bottom: 2px;
-        }
-        .price-sub { font-size: 13px; color: var(--text-tertiary); margin-bottom: 20px; }
-        .price-desc {
-            font-size: 0.9rem; line-height: 1.6; margin-bottom: 24px;
-            padding-bottom: 24px; border-bottom: 1px solid var(--border-subtle);
-        }
-        .price-features { list-style: none; margin-bottom: 28px; }
-        .price-features li {
-            display: flex; align-items: flex-start; gap: 10px;
-            padding: 8px 0; font-size: 0.88rem; color: var(--text-primary);
-        }
-        .price-features li svg { flex-shrink: 0; margin-top: 2px; color: var(--green); }
-        .price-btn {
-            display: block; width: 100%; padding: 13px; text-align: center;
-            border-radius: var(--radius-md); font-weight: 600; font-size: 0.9rem;
-            text-decoration: none; transition: all 0.25s ease; cursor: pointer;
-            border: 1px solid var(--border-default); color: var(--text-primary); background: transparent;
-        }
-        .price-btn:hover { background: var(--bg-hover); border-color: var(--text-tertiary); color: #fff; }
-        .price-card.featured .price-btn {
-            background: var(--accent); border-color: var(--accent); color: #fff;
-            box-shadow: 0 0 20px var(--accent-glow);
-        }
-        .price-card.featured .price-btn:hover { background: var(--accent-hover); }
+        /* --- COMPARE --- */
+        .cmp { margin-top: 52px; overflow-x: auto; }
+        .cmp table { width: 100%; border-collapse: collapse; }
+        .cmp th, .cmp td { padding: 12px 16px; text-align: left; font-size: .84rem; border-bottom: 1px solid var(--border); }
+        .cmp th { color: var(--t3); font-weight: 700; font-size: .7rem; text-transform: uppercase; letter-spacing: .07em; }
+        .cmp tr:hover td { background: rgba(255,255,255,.01); }
 
-        /* COMPARISON */
-        .comparison { margin-top: 56px; overflow-x: auto; }
-        .comparison table { width: 100%; border-collapse: collapse; }
-        .comparison th, .comparison td {
-            padding: 14px 18px; text-align: left; font-size: 0.88rem;
-            border-bottom: 1px solid var(--border-subtle);
-        }
-        .comparison th {
-            color: var(--text-tertiary); font-weight: 600; font-size: 0.75rem;
-            text-transform: uppercase; letter-spacing: 0.06em;
-        }
-        .comparison td { color: var(--text-secondary); }
-        .comparison tr:hover td { background: rgba(255,255,255,0.015); }
-        .cmp-check { color: var(--green); }
-        .cmp-dash { color: var(--text-tertiary); }
+        /* --- FAQ --- */
+        .faq-list { max-width: 660px; margin: 0 auto; }
+        .fq { border: 1px solid var(--border); border-radius: var(--r); margin-bottom: 8px; overflow: hidden; transition: .3s; }
+        .fq:hover { border-color: var(--border-h); }
+        .fq.o { border-color: rgba(124,108,246,.25); }
+        .fq-q { padding: 16px 20px; font-weight: 600; font-size: .92rem; color: var(--t1); cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: .2s; }
+        .fq-q:hover { background: rgba(255,255,255,.015); }
+        .fq-q i { width: 26px; height: 26px; border-radius: 50%; background: var(--bg3); display: flex; align-items: center; justify-content: center; font-size: 13px; font-style: normal; color: var(--t3); transition: .3s; flex-shrink: 0; }
+        .fq.o .fq-q i { background: var(--acc-g); color: var(--acc2); transform: rotate(45deg); }
+        .fq-a { max-height: 0; overflow: hidden; transition: max-height .4s ease, padding .4s ease; font-size: .9rem; line-height: 1.7; padding: 0 20px; }
+        .fq.o .fq-a { max-height: 200px; padding: 0 20px 20px; }
 
-        /* FAQ */
-        .faq-list { max-width: 680px; margin: 0 auto; }
-        .faq-item {
-            border: 1px solid var(--border-subtle); border-radius: var(--radius-md);
-            margin-bottom: 10px; overflow: hidden; transition: border-color 0.3s;
-        }
-        .faq-item:hover { border-color: var(--border-default); }
-        .faq-item.open { border-color: rgba(108,92,231,0.3); }
-        .faq-q {
-            padding: 18px 22px; font-weight: 600; font-size: 0.95rem;
-            color: var(--text-primary); cursor: pointer;
-            display: flex; justify-content: space-between; align-items: center;
-            transition: background var(--transition);
-        }
-        .faq-q:hover { background: rgba(255,255,255,0.02); }
-        .faq-q .arrow {
-            width: 28px; height: 28px; border-radius: 50%; background: var(--bg-tertiary);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 14px; color: var(--text-tertiary); transition: all 0.3s; flex-shrink: 0;
-        }
-        .faq-item.open .arrow { background: var(--accent-glow); color: var(--accent); transform: rotate(45deg); }
-        .faq-a {
-            max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease;
-            font-size: 0.92rem; line-height: 1.7; padding: 0 22px;
-        }
-        .faq-item.open .faq-a { max-height: 250px; padding: 0 22px 22px; }
+        /* --- CONTACT --- */
+        .cgrid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 44px; align-items: start; }
+        .ci h3 { font-size: 1.15rem; font-weight: 700; color: var(--t1); margin-bottom: 12px; }
+        .cd { display: flex; align-items: center; gap: 13px; padding: 13px 0; border-bottom: 1px solid var(--border); }
+        .cd .ib { width: 40px; height: 40px; border-radius: 10px; background: var(--acc-g); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--acc2); }
+        .cd-l { font-size: 11px; color: var(--t3); }
+        .cd-v { font-size: .88rem; font-weight: 500; color: var(--t1); }
+        .cform { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--r); padding: 32px; }
+        .fr { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .fg { margin-bottom: 14px; }
+        .fg label { display: block; font-size: 12px; font-weight: 600; color: var(--t2); margin-bottom: 5px; }
+        .fg input, .fg select, .fg textarea { width: 100%; padding: 10px 13px; background: var(--bg); border: 1px solid var(--border); border-radius: var(--rs); color: var(--t1); font-family: inherit; font-size: .88rem; outline: none; transition: .2s; }
+        .fg input:focus, .fg select:focus, .fg textarea:focus { border-color: var(--acc); box-shadow: 0 0 0 3px var(--acc-g); }
+        .fg input::placeholder, .fg textarea::placeholder { color: var(--t3); }
+        .fg textarea { resize: vertical; min-height: 80px; }
+        .fg select { appearance: none; }
+        .fsub { width: 100%; padding: 12px; background: var(--acc); color: #fff; border: none; border-radius: var(--r); font-weight: 700; font-size: .9rem; cursor: pointer; font-family: inherit; transition: .25s; }
+        .fsub:hover { background: var(--acc2); transform: translateY(-1px); }
+        .fnote { font-size: 11px; color: var(--t3); margin-top: 10px; text-align: center; }
 
-        /* CONTACT */
-        .contact-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 48px; align-items: start; }
-        .contact-info h3 { font-size: 1.2rem; font-weight: 700; color: var(--text-primary); margin-bottom: 14px; }
-        .contact-detail {
-            display: flex; align-items: center; gap: 14px; padding: 14px 0;
-            border-bottom: 1px solid var(--border-subtle);
-        }
-        .contact-detail .icon-box {
-            width: 42px; height: 42px; border-radius: var(--radius-md);
-            background: var(--accent-glow); display: flex; align-items: center;
-            justify-content: center; flex-shrink: 0; color: var(--accent);
-        }
-        .cd-label { font-size: 12px; color: var(--text-tertiary); }
-        .cd-value { font-size: 0.9rem; font-weight: 500; color: var(--text-primary); }
-        .contact-form {
-            background: var(--bg-secondary); border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-lg); padding: 36px;
-        }
-        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-        .form-group { margin-bottom: 16px; }
-        .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: var(--text-secondary); }
-        .form-group input, .form-group select, .form-group textarea {
-            width: 100%; padding: 11px 14px; background: var(--bg-tertiary);
-            border: 1px solid var(--border-default); border-radius: var(--radius-sm);
-            color: var(--text-primary); font-family: inherit; font-size: 0.9rem;
-            outline: none; transition: border-color var(--transition), box-shadow var(--transition);
-        }
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-            border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow);
-        }
-        .form-group input::placeholder, .form-group textarea::placeholder { color: var(--text-tertiary); }
-        .form-group textarea { resize: vertical; min-height: 90px; }
-        .form-group select { appearance: none; }
-        .form-submit {
-            width: 100%; padding: 13px; background: var(--accent); color: #fff;
-            border: none; border-radius: var(--radius-md); font-weight: 700;
-            font-size: 0.95rem; cursor: pointer; transition: all 0.25s ease; font-family: inherit;
-        }
-        .form-submit:hover { background: var(--accent-hover); transform: translateY(-1px); }
-        .form-note { font-size: 12px; color: var(--text-tertiary); margin-top: 12px; text-align: center; }
+        /* --- GUARANTEE --- */
+        .guar { display: flex; align-items: center; gap: 13px; justify-content: center; margin-top: 40px; padding: 16px 22px; border-radius: var(--r); background: var(--grn-g); border: 1px solid rgba(52,211,153,.12); max-width: 440px; margin-left: auto; margin-right: auto; }
+        .guar svg { flex-shrink: 0; color: var(--grn); }
+        .guar strong { display: block; font-size: .88rem; color: var(--grn); }
+        .guar p { font-size: .78rem; color: var(--t2); margin-top: 1px; }
 
-        /* GUARANTEE */
-        .guarantee {
-            display: flex; align-items: center; gap: 14px; justify-content: center;
-            margin-top: 44px; padding: 18px 24px; border-radius: var(--radius-md);
-            background: var(--green-glow); border: 1px solid rgba(34,197,94,0.15);
-            max-width: 460px; margin-left: auto; margin-right: auto;
-        }
-        .guarantee svg { flex-shrink: 0; color: var(--green); }
-        .guarantee strong { display: block; font-size: 0.9rem; color: var(--green); }
-        .guarantee p { font-size: 0.8rem; color: var(--text-secondary); margin-top: 2px; }
+        /* --- FINAL CTA --- */
+        .fcta { padding: 120px 0; text-align: center; position: relative; }
+        .fcta::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 500px; height: 500px; background: var(--acc); border-radius: 50%; filter: blur(200px); opacity: .06; pointer-events: none; }
+        .fcta h2 { font-size: clamp(2rem,4vw,3rem); font-weight: 900; color: var(--t1); letter-spacing: -.02em; margin-bottom: 14px; line-height: 1.15; }
+        .fcta p { font-size: 1.05rem; margin-bottom: 36px; }
 
-        /* FINAL CTA */
-        .final-cta {
-            padding: 120px 0; text-align: center; position: relative;
-        }
-        .final-cta::before {
-            content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 500px; height: 500px; background: var(--accent); border-radius: 50%;
-            filter: blur(180px); opacity: 0.08; pointer-events: none;
-        }
-        .final-cta h2 {
-            font-size: clamp(2rem, 4vw, 3rem); font-weight: 900;
-            color: var(--text-primary); letter-spacing: -0.02em; margin-bottom: 14px; line-height: 1.15;
-        }
-        .final-cta p { color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 36px; }
+        /* --- FOOTER --- */
+        footer { padding: 48px 0 28px; border-top: 1px solid var(--border); }
+        .fgrid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 36px; margin-bottom: 36px; }
+        .fb p { font-size: 12px; color: var(--t3); max-width: 240px; line-height: 1.65; margin-top: 10px; }
+        .fc h4 { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--t3); margin-bottom: 12px; }
+        .fc a { display: block; font-size: 13px; color: var(--t2); text-decoration: none; padding: 3px 0; transition: .2s; }
+        .fc a:hover { color: var(--t1); }
+        .fbot { display: flex; justify-content: space-between; align-items: center; padding-top: 20px; border-top: 1px solid var(--border); font-size: 11px; color: var(--t3); }
+        .fbot a { color: var(--t2); text-decoration: none; }
 
-        /* FOOTER */
-        footer { padding: 48px 0 32px; border-top: 1px solid var(--border-subtle); }
-        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
-        .footer-brand p { font-size: 13px; color: var(--text-tertiary); max-width: 260px; line-height: 1.6; margin-top: 12px; }
-        .footer-col h4 {
-            font-size: 12px; font-weight: 700; text-transform: uppercase;
-            letter-spacing: 0.06em; color: var(--text-tertiary); margin-bottom: 14px;
+        /* --- RESPONSIVE --- */
+        @media(max-width:900px) {
+            .price-grid, .bento { grid-template-columns: 1fr; }
+            .bento .w2 { grid-column: span 1; }
+            .pc.pop { transform: none; }
+            .cgrid { grid-template-columns: 1fr; }
+            .fgrid { grid-template-columns: 1fr 1fr; }
+            .fr { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .cmp { display: none; }
         }
-        .footer-col a {
-            display: block; font-size: 13px; color: var(--text-secondary);
-            text-decoration: none; padding: 4px 0; transition: color var(--transition);
-        }
-        .footer-col a:hover { color: var(--text-primary); }
-        .footer-bottom {
-            display: flex; justify-content: space-between; align-items: center;
-            padding-top: 24px; border-top: 1px solid var(--border-subtle);
-            font-size: 12px; color: var(--text-tertiary);
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 900px) {
-            .pricing-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
-            .price-card.featured { transform: none; }
-            .bento { grid-template-columns: 1fr; }
-            .bento-card.span-2 { grid-column: span 1; }
-            .contact-grid { grid-template-columns: 1fr; }
-            .footer-grid { grid-template-columns: 1fr 1fr; }
-            .form-row { grid-template-columns: 1fr; }
-            .nav-link { display: none; }
-            .comparison { display: none; }
-        }
-        @media (max-width: 480px) {
-            .trust-items { gap: 20px; }
-            .hero { padding: 120px 20px 80px; }
-            .section { padding: 72px 0; }
-            .footer-grid { grid-template-columns: 1fr; }
+        @media(max-width:480px) {
+            .stats-grid { grid-template-columns: 1fr; }
+            .fgrid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-<div class="bg-effects"><div class="bg-orb"></div><div class="bg-orb"></div><div class="bg-orb"></div><div class="bg-noise"></div></div>
+<div class="aurora"><i></i><i></i><i></i></div>
+<div class="grain"></div>
 
 <!-- NAV -->
-<nav id="nav">
-    <div class="container">
-        <div class="logo">Plan<span>Forge</span></div>
-        <div class="nav-links">
-            <a href="#features" class="nav-link">Features</a>
-            <a href="#process" class="nav-link">Process</a>
-            <a href="#pricing" class="nav-link">Pricing</a>
-            <a href="#faq" class="nav-link">FAQ</a>
-            <a href="#contact" class="nav-cta">Get Your Plan</a>
+<header id="hd">
+    <div class="wrap">
+        <div class="logo">Plan<b>Forge</b></div>
+        <div class="hnav">
+            <a href="#features">Features</a>
+            <a href="#process">Process</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#faq">FAQ</a>
+            <a href="#contact" class="hcta">Get Your Plan</a>
         </div>
     </div>
-</nav>
+</header>
 
 <!-- HERO -->
 <section class="hero">
-    <div class="container">
-        <div class="hero-badge reveal">
-            <span class="pulse-dot"></span>
-            Now accepting new clients
+    <div class="wrap">
+        <div class="pill" data-r><i></i> Now accepting new clients</div>
+        <h1 data-r="1"><span>Business Plans</span><br><em>That Close Deals.</em></h1>
+        <p data-r="2">Professionally written, investor-ready business plans backed by real market research. Delivered in 48 hours.</p>
+        <div class="btns" data-r="3">
+            <a href="#contact" class="bp">Get Started <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+            <a href="#features" class="bs">See What's Included</a>
         </div>
-        <h1 class="reveal d1"><span class="gradient-text">Business Plans<br>That Close Deals.</span></h1>
-        <p class="subtitle reveal d2">Professionally written, investor-ready business plans backed by real market research. Delivered in 48 hours.</p>
-        <div class="cta-group reveal d3">
-            <a href="#contact" class="btn-primary">Get Started <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
-            <a href="#features" class="btn-secondary">See What's Included</a>
-        </div>
-        <div class="guarantee reveal d4">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
-            <div><strong>100% Satisfaction Guarantee</strong><p>Unlimited revisions or a full refund. No questions asked.</p></div>
+        <div class="guar" data-r="4">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+            <div><strong>100% Satisfaction Guarantee</strong><p>Unlimited revisions or a full refund.</p></div>
         </div>
     </div>
 </section>
 
-<!-- TRUST BAR -->
-<section class="trust-bar reveal">
-    <div class="container">
-        <div class="trust-label">Trusted for</div>
-        <div class="trust-items">
-            <div class="trust-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg> Bank Loans</div>
-            <div class="trust-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg> Investor Pitches</div>
-            <div class="trust-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> Visa Applications</div>
-            <div class="trust-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5C7 4 7 7 7 7"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5C17 4 17 7 17 7"/><path d="M4 22h16"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg> Government Grants</div>
+<!-- MARQUEE TRUST -->
+<div class="marquee-wrap">
+    <div class="marquee-label">Trusted For</div>
+    <div class="marquee" id="mq">
+        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg> Bank Loans</span>
+        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg> Investor Pitches</span>
+        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> Visa Applications</span>
+        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5C7 4 7 7 7 7"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5C17 4 17 7 17 7"/><path d="M4 22h16"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg> Government Grants</span>
+        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> Internal Strategy</span>
+        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg> Bank Loans</span>
+        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg> Investor Pitches</span>
+        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> Visa Applications</span>
+        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5C7 4 7 7 7 7"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5C17 4 17 7 17 7"/><path d="M4 22h16"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg> Government Grants</span>
+        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> Internal Strategy</span>
+    </div>
+</div>
+
+<!-- STATS -->
+<section class="stats">
+    <div class="wrap">
+        <div class="stats-grid">
+            <div class="stat" data-r><div class="num"><b>48</b>hr</div><div class="lab">Average Delivery</div></div>
+            <div class="stat" data-r="1"><div class="num"><b>30</b>+</div><div class="lab">Page Business Plans</div></div>
+            <div class="stat" data-r="2"><div class="num"><b>3</b>yr</div><div class="lab">Financial Projections</div></div>
+            <div class="stat" data-r="3"><div class="num" style="font-size:2rem">&#8734;</div><div class="lab">Revisions (Enterprise)</div></div>
         </div>
     </div>
 </section>
 
-<!-- WHY -->
-<section class="section">
-    <div class="container">
-        <div class="section-header center reveal">
-            <div class="section-label">The Problem</div>
-            <h2 class="section-title">Writing a Business Plan Shouldn't Take Weeks</h2>
-        </div>
-        <div class="problem-grid">
-            <div class="problem-card reveal">
-                <div class="problem-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+<!-- PROBLEM -->
+<section class="sec">
+    <div class="wrap">
+        <div class="sh c" data-r><div class="sl">The Problem</div><h2 class="st">Writing a Business Plan Shouldn't Take Weeks</h2></div>
+        <div class="glass-grid">
+            <div class="glass" data-r>
+                <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
                 <h3>You're busy running your business</h3>
                 <p>You don't have 40+ hours to research, write, and format a professional business plan from scratch.</p>
             </div>
-            <div class="problem-card reveal d1">
-                <div class="problem-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/></svg></div>
+            <div class="glass" data-r="1">
+                <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/></svg></div>
                 <h3>Templates are generic garbage</h3>
                 <p>Free templates don't account for your market, your numbers, or what your bank actually wants to see.</p>
             </div>
-            <div class="problem-card reveal d2">
-                <div class="problem-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+            <div class="glass" data-r="2">
+                <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
                 <h3>Consultants charge $5K-$15K</h3>
                 <p>Traditional firms charge thousands and take weeks. That's overkill for most businesses.</p>
             </div>
@@ -547,306 +322,145 @@
     </div>
 </section>
 
-<!-- FEATURES BENTO -->
-<section id="features" class="section" style="background: var(--bg-secondary);">
-    <div class="container">
-        <div class="section-header center reveal">
-            <div class="section-label">What's Inside</div>
-            <h2 class="section-title">Everything Your Plan Needs</h2>
-            <p class="section-subtitle">Written from scratch. No templates. Every section backed by research specific to your business.</p>
-        </div>
+<!-- FEATURES -->
+<section id="features" class="sec alt">
+    <div class="wrap">
+        <div class="sh c" data-r><div class="sl">What's Inside</div><h2 class="st">Everything Your Plan Needs</h2><p class="ss">Written from scratch. No templates. Every section backed by research specific to your business.</p></div>
         <div class="bento">
-            <div class="bento-card span-2 reveal">
-                <div class="bento-tag blue">Core</div>
-                <h3>Executive Summary & Business Overview</h3>
-                <p>The first page your reader sees. A compelling narrative that hooks bankers and investors immediately -- your vision, your opportunity, and why now.</p>
+            <div class="w2" data-r><div class="tag tag-b">Core</div><h3>Executive Summary & Business Overview</h3><p>The first page your reader sees. A compelling narrative that hooks bankers and investors -- your vision, your opportunity, and why now.</p></div>
+            <div data-r="1"><div class="tag tag-p">Research</div><h3>Market Analysis</h3><p>Real data on your target market, industry size, trends, and growth potential.</p></div>
+            <div data-r><div class="tag tag-p">Strategy</div><h3>Competitive Landscape</h3><p>Who you're up against, how you're positioned, and what makes your business defensible.</p></div>
+            <div class="w2" data-r="1"><div class="tag tag-g">Financial</div><h3>Financial Projections & Modelling</h3><p>Revenue forecasts, expense breakdowns, cash flow, and break-even analysis.</p>
+                <ul><li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Revenue forecast model</li><li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Monthly cash flow projection</li><li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Break-even analysis</li><li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Key assumptions documented</li></ul>
             </div>
-            <div class="bento-card reveal d1">
-                <div class="bento-tag purple">Research</div>
-                <h3>Market Analysis</h3>
-                <p>Real data on your target market, industry size, trends, and growth potential. Not generic filler.</p>
-            </div>
-            <div class="bento-card reveal">
-                <div class="bento-tag purple">Strategy</div>
-                <h3>Competitive Landscape</h3>
-                <p>Who you're up against, how you're positioned, and what makes your business defensible.</p>
-            </div>
-            <div class="bento-card span-2 reveal d1">
-                <div class="bento-tag green">Financial</div>
-                <h3>Financial Projections & Modelling</h3>
-                <p>Revenue forecasts, expense breakdowns, cash flow projections, and break-even analysis with realistic, defensible numbers.</p>
-                <ul class="bento-list">
-                    <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Revenue forecast model</li>
-                    <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Monthly cash flow projection</li>
-                    <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Break-even analysis</li>
-                    <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Key assumptions documented</li>
-                </ul>
-            </div>
-            <div class="bento-card reveal">
-                <div class="bento-tag amber">Growth</div>
-                <h3>Marketing & Sales Strategy</h3>
-                <p>Customer acquisition plan, pricing model, channels, and go-to-market roadmap.</p>
-            </div>
-            <div class="bento-card reveal d1">
-                <div class="bento-tag blue">Operations</div>
-                <h3>Operations Plan</h3>
-                <p>Business structure, key processes, staffing requirements, and milestones.</p>
-            </div>
+            <div data-r><div class="tag tag-a">Growth</div><h3>Marketing & Sales</h3><p>Customer acquisition, pricing model, channels, and go-to-market roadmap.</p></div>
+            <div data-r="1"><div class="tag tag-b">Operations</div><h3>Operations Plan</h3><p>Business structure, processes, staffing, and key milestones.</p></div>
         </div>
     </div>
 </section>
 
 <!-- PROCESS -->
-<section id="process" class="section">
-    <div class="container">
-        <div class="section-header center reveal">
-            <div class="section-label">Process</div>
-            <h2 class="section-title">Three Steps. That's It.</h2>
-            <p class="section-subtitle">No lengthy meetings. No endless back-and-forth. Just a simple process that gets you a professional plan fast.</p>
-        </div>
-        <div class="timeline">
-            <div class="tl-step reveal">
-                <div class="tl-dot">1</div>
-                <div class="tl-content">
-                    <h3>Tell Us About Your Business</h3>
-                    <p>Fill out a short questionnaire about your business, goals, and what you need the plan for.</p>
-                    <span class="tl-tag">15 minutes</span>
-                </div>
-            </div>
-            <div class="tl-step reveal d1">
-                <div class="tl-dot">2</div>
-                <div class="tl-content">
-                    <h3>We Research & Write</h3>
-                    <p>We analyse your market, research competitors, build financial models, and write your complete plan from scratch.</p>
-                    <span class="tl-tag">24-48 hours</span>
-                </div>
-            </div>
-            <div class="tl-step reveal d2">
-                <div class="tl-dot">3</div>
-                <div class="tl-content">
-                    <h3>Review, Revise, Done</h3>
-                    <p>Receive your polished plan as a PDF. Request revisions until you're 100% satisfied.</p>
-                    <span class="tl-tag">Same-day revisions</span>
-                </div>
-            </div>
+<section id="process" class="sec">
+    <div class="wrap">
+        <div class="sh c" data-r><div class="sl">Process</div><h2 class="st">Three Steps. That's It.</h2><p class="ss">No meetings. No back-and-forth. Just a simple process that delivers fast.</p></div>
+        <div class="tl">
+            <div class="tl-s" data-r><div class="tl-d">1</div><div class="tl-c"><h3>Tell Us About Your Business</h3><p>Fill out a short questionnaire about your business, goals, and what you need the plan for.</p><span class="tl-t">15 minutes</span></div></div>
+            <div class="tl-s" data-r="1"><div class="tl-d">2</div><div class="tl-c"><h3>We Research & Write</h3><p>We analyse your market, research competitors, build financial models, and write your complete plan.</p><span class="tl-t">24-48 hours</span></div></div>
+            <div class="tl-s" data-r="2"><div class="tl-d">3</div><div class="tl-c"><h3>Review, Revise, Done</h3><p>Receive your polished plan. Request revisions until you're 100% satisfied.</p><span class="tl-t">Same-day revisions</span></div></div>
         </div>
     </div>
 </section>
 
 <!-- PRICING -->
-<section id="pricing" class="section" style="background: var(--bg-secondary);">
-    <div class="container">
-        <div class="section-header center reveal">
-            <div class="section-label">Pricing</div>
-            <h2 class="section-title">Transparent Pricing. No Surprises.</h2>
-            <p class="section-subtitle">Pick the tier that fits. Every plan includes a satisfaction guarantee.</p>
-        </div>
-        <div class="pricing-grid">
-            <div class="price-card reveal">
-                <div class="price-tier">Starter</div>
-                <div class="price-amount">$299</div>
-                <div class="price-sub">AUD, one-time</div>
-                <div class="price-desc">For early-stage businesses and straightforward plans.</div>
-                <ul class="price-features">
-                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> 15-20 page business plan</li>
-                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Executive summary</li>
-                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Market overview</li>
-                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> 1-year financial projection</li>
-                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> 1 revision round</li>
-                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> PDF delivery</li>
-                </ul>
-                <a href="#contact" class="price-btn">Get Started</a>
+<section id="pricing" class="sec alt">
+    <div class="wrap">
+        <div class="sh c" data-r><div class="sl">Pricing</div><h2 class="st">Transparent Pricing. No Surprises.</h2><p class="ss">Pick the tier that fits. Every plan includes a satisfaction guarantee.</p></div>
+        <div class="price-grid">
+            <div class="pc" data-r>
+                <div class="tier">Starter</div><div class="amt">$299</div><div class="per">AUD, one-time</div>
+                <div class="desc">For early-stage businesses and straightforward plans.</div>
+                <ul><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>15-20 page business plan</li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Executive summary</li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Market overview</li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>1-year financial projection</li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>1 revision round</li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>PDF delivery</li></ul>
+                <a href="#contact" class="pbtn">Get Started</a>
             </div>
-            <div class="price-card featured reveal d1">
-                <div class="featured-badge">Most Popular</div>
-                <div class="price-tier">Professional</div>
-                <div class="price-amount">$499</div>
-                <div class="price-sub">AUD, one-time</div>
-                <div class="price-desc">For loan applications, investor decks, and serious ventures.</div>
-                <ul class="price-features">
-                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> 25-35 page business plan</li>
-                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Everything in Starter</li>
-                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Competitive analysis</li>
-                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> 3-year financial model</li>
-                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Marketing & sales strategy</li>
-                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> 2 revision rounds</li>
-                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> PDF + editable document</li>
-                </ul>
-                <a href="#contact" class="price-btn">Get Started</a>
+            <div class="pc pop" data-r="1">
+                <div class="pop-badge">Most Popular</div>
+                <div class="tier">Professional</div><div class="amt">$499</div><div class="per">AUD, one-time</div>
+                <div class="desc">For loan applications, investor decks, and serious ventures.</div>
+                <ul><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>25-35 page business plan</li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Everything in Starter</li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Competitive analysis</li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>3-year financial model</li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Marketing & sales strategy</li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>2 revision rounds</li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>PDF + editable document</li></ul>
+                <a href="#contact" class="pbtn">Get Started</a>
             </div>
-            <div class="price-card reveal d2">
-                <div class="price-tier">Enterprise</div>
-                <div class="price-amount">$799</div>
-                <div class="price-sub">AUD, one-time</div>
-                <div class="price-desc">For major funding rounds and high-stakes applications.</div>
-                <ul class="price-features">
-                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> 40+ page business plan</li>
-                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Everything in Professional</li>
-                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> 5-year financial model</li>
-                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Detailed operations plan</li>
-                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Pitch deck (10-15 slides)</li>
-                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Unlimited revisions</li>
-                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Spreadsheet financial model</li>
-                </ul>
-                <a href="#contact" class="price-btn">Get Started</a>
+            <div class="pc" data-r="2">
+                <div class="tier">Enterprise</div><div class="amt">$799</div><div class="per">AUD, one-time</div>
+                <div class="desc">For major funding rounds and high-stakes applications.</div>
+                <ul><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>40+ page business plan</li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Everything in Professional</li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>5-year financial model</li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Detailed operations plan</li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Pitch deck (10-15 slides)</li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Unlimited revisions</li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Spreadsheet financial model</li></ul>
+                <a href="#contact" class="pbtn">Get Started</a>
             </div>
         </div>
-        <div class="comparison reveal">
-            <table>
-                <thead><tr><th>Feature</th><th>Starter</th><th>Professional</th><th>Enterprise</th></tr></thead>
-                <tbody>
-                    <tr><td>Pages</td><td>15-20</td><td>25-35</td><td>40+</td></tr>
-                    <tr><td>Executive Summary</td><td class="cmp-check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></td><td class="cmp-check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></td><td class="cmp-check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></td></tr>
-                    <tr><td>Market Analysis</td><td>Overview</td><td>Detailed</td><td>Comprehensive</td></tr>
-                    <tr><td>Competitive Analysis</td><td class="cmp-dash">--</td><td class="cmp-check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></td><td class="cmp-check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></td></tr>
-                    <tr><td>Financial Projections</td><td>1 year</td><td>3 years</td><td>5 years</td></tr>
-                    <tr><td>Marketing Strategy</td><td class="cmp-dash">--</td><td class="cmp-check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></td><td class="cmp-check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></td></tr>
-                    <tr><td>Pitch Deck</td><td class="cmp-dash">--</td><td class="cmp-dash">--</td><td class="cmp-check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></td></tr>
-                    <tr><td>Revisions</td><td>1 round</td><td>2 rounds</td><td>Unlimited</td></tr>
-                    <tr><td>Delivery</td><td>PDF</td><td>PDF + Doc</td><td>PDF + Doc + XLSX</td></tr>
-                </tbody>
-            </table>
+        <div class="cmp" data-r>
+            <table><thead><tr><th>Feature</th><th>Starter</th><th>Professional</th><th>Enterprise</th></tr></thead>
+            <tbody>
+                <tr><td>Pages</td><td>15-20</td><td>25-35</td><td>40+</td></tr>
+                <tr><td>Market Analysis</td><td>Overview</td><td>Detailed</td><td>Comprehensive</td></tr>
+                <tr><td>Financial Projections</td><td>1 year</td><td>3 years</td><td>5 years</td></tr>
+                <tr><td>Competitive Analysis</td><td style="color:var(--t3)">--</td><td style="color:var(--grn)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></td><td style="color:var(--grn)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></td></tr>
+                <tr><td>Marketing Strategy</td><td style="color:var(--t3)">--</td><td style="color:var(--grn)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></td><td style="color:var(--grn)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></td></tr>
+                <tr><td>Pitch Deck</td><td style="color:var(--t3)">--</td><td style="color:var(--t3)">--</td><td style="color:var(--grn)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></td></tr>
+                <tr><td>Revisions</td><td>1 round</td><td>2 rounds</td><td>Unlimited</td></tr>
+                <tr><td>Delivery</td><td>PDF</td><td>PDF + Doc</td><td>PDF + Doc + XLSX</td></tr>
+            </tbody></table>
         </div>
     </div>
 </section>
 
 <!-- FAQ -->
-<section id="faq" class="section">
-    <div class="container">
-        <div class="section-header center reveal">
-            <div class="section-label">FAQ</div>
-            <h2 class="section-title">Common Questions</h2>
-        </div>
+<section id="faq" class="sec">
+    <div class="wrap">
+        <div class="sh c" data-r><div class="sl">FAQ</div><h2 class="st">Common Questions</h2></div>
         <div class="faq-list">
-            <div class="faq-item reveal"><div class="faq-q">How long does delivery take? <span class="arrow">+</span></div><div class="faq-a">Starter and Professional plans are delivered within 48 hours. Enterprise takes 3-4 business days. Rush delivery (24 hours) is available for $150.</div></div>
-            <div class="faq-item reveal d1"><div class="faq-q">Is it written specifically for my business? <span class="arrow">+</span></div><div class="faq-a">Every plan is researched and written from scratch based on your business, market, and goals. We never use templates or recycle content.</div></div>
-            <div class="faq-item reveal d2"><div class="faq-q">What if I'm not satisfied? <span class="arrow">+</span></div><div class="faq-a">Every package includes revision rounds. If you're still not happy, we offer a full refund. No questions asked.</div></div>
-            <div class="faq-item reveal"><div class="faq-q">Will my bank accept this? <span class="arrow">+</span></div><div class="faq-a">Our Professional and Enterprise plans are structured to meet Australian bank and lender requirements including detailed cash flow analysis and financial projections.</div></div>
-            <div class="faq-item reveal d1"><div class="faq-q">What do you need from me? <span class="arrow">+</span></div><div class="faq-a">A completed questionnaire about your business -- takes about 15 minutes. We handle all the research, financial modelling, writing, and formatting.</div></div>
-            <div class="faq-item reveal d2"><div class="faq-q">Do you help with visa business plans? <span class="arrow">+</span></div><div class="faq-a">Yes. We have experience with Business Innovation (188), Investor (188B), Significant Investor (188C), and other Australian visa types.</div></div>
-            <div class="faq-item reveal"><div class="faq-q">Can I edit the plan after delivery? <span class="arrow">+</span></div><div class="faq-a">Professional and Enterprise plans include an editable document (Word/Google Docs). Starter delivers as PDF only.</div></div>
+            <div class="fq" data-r><div class="fq-q">How long does delivery take? <i>+</i></div><div class="fq-a">Starter and Professional plans are delivered within 48 hours. Enterprise takes 3-4 business days. Rush delivery (24 hours) is available for $150.</div></div>
+            <div class="fq" data-r="1"><div class="fq-q">Is it written specifically for my business? <i>+</i></div><div class="fq-a">Every plan is researched and written from scratch based on your business, market, and goals. We never use templates or recycle content.</div></div>
+            <div class="fq" data-r="2"><div class="fq-q">What if I'm not satisfied? <i>+</i></div><div class="fq-a">Every package includes revision rounds. If you're still not happy, we offer a full refund. No questions asked.</div></div>
+            <div class="fq" data-r><div class="fq-q">Will my bank accept this? <i>+</i></div><div class="fq-a">Our Professional and Enterprise plans meet Australian bank and lender requirements including detailed cash flow analysis and projections.</div></div>
+            <div class="fq" data-r="1"><div class="fq-q">What do you need from me? <i>+</i></div><div class="fq-a">A completed questionnaire about your business -- takes 15 minutes. We handle all research, modelling, writing, and formatting.</div></div>
+            <div class="fq" data-r="2"><div class="fq-q">Do you help with visa business plans? <i>+</i></div><div class="fq-a">Yes. We cover Business Innovation (188), Investor (188B), Significant Investor (188C), and other Australian visa types.</div></div>
         </div>
     </div>
 </section>
 
 <!-- CONTACT -->
-<section id="contact" class="section" style="background: var(--bg-secondary);">
-    <div class="container">
-        <div class="contact-grid">
-            <div class="contact-info reveal">
-                <div class="section-label">Get Started</div>
-                <h2 class="section-title">Let's Build Your Plan</h2>
-                <p style="margin-bottom: 28px; line-height: 1.7;">Fill out the form and we'll get back to you within a few hours with your questionnaire and next steps.</p>
-                <div class="contact-detail">
-                    <div class="icon-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div>
-                    <div><div class="cd-label">Email</div><div class="cd-value">ashtonluca@gmail.com</div></div>
-                </div>
-                <div class="contact-detail">
-                    <div class="icon-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-                    <div><div class="cd-label">Response Time</div><div class="cd-value">Within 4 hours (AEST)</div></div>
-                </div>
-                <div class="contact-detail">
-                    <div class="icon-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></div>
-                    <div><div class="cd-label">Based In</div><div class="cd-value">Brisbane, Australia</div></div>
-                </div>
+<section id="contact" class="sec alt">
+    <div class="wrap">
+        <div class="cgrid">
+            <div class="ci" data-r>
+                <div class="sl">Get Started</div>
+                <h2 class="st">Let's Build Your Plan</h2>
+                <p style="margin-bottom:24px;line-height:1.75">Fill out the form and we'll get back to you within hours with your questionnaire and next steps.</p>
+                <div class="cd"><div class="ib"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div><div><div class="cd-l">Email</div><div class="cd-v">ashtonluca@gmail.com</div></div></div>
+                <div class="cd"><div class="ib"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><div class="cd-l">Response Time</div><div class="cd-v">Within 4 hours (AEST)</div></div></div>
+                <div class="cd"><div class="ib"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></div><div><div class="cd-l">Based In</div><div class="cd-v">Brisbane, Australia</div></div></div>
             </div>
-            <form class="contact-form reveal d1" id="contactForm">
-                <div class="form-row">
-                    <div class="form-group"><label>Full Name</label><input type="text" name="name" required placeholder="John Smith"></div>
-                    <div class="form-group"><label>Email</label><input type="email" name="email" required placeholder="john@example.com"></div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group"><label>Business Name</label><input type="text" name="business" placeholder="Your business name"></div>
-                    <div class="form-group"><label>Package</label><select name="package"><option value="starter">Starter -- $299</option><option value="professional" selected>Professional -- $499</option><option value="enterprise">Enterprise -- $799</option></select></div>
-                </div>
-                <div class="form-group"><label>What's the plan for?</label><select name="purpose"><option value="">Select purpose...</option><option value="bank-loan">Bank loan</option><option value="investor">Investor pitch</option><option value="visa">Visa application</option><option value="grant">Government grant</option><option value="strategy">Internal strategy</option><option value="other">Other</option></select></div>
-                <div class="form-group"><label>Tell us about your business</label><textarea name="details" placeholder="Brief description of your business and any specific requirements..."></textarea></div>
-                <button type="submit" class="form-submit">Send Inquiry</button>
-                <p class="form-note">We'll respond within 4 hours with your questionnaire and next steps.</p>
+            <form class="cform" id="cf" data-r="1">
+                <div class="fr"><div class="fg"><label>Full Name</label><input type="text" name="name" required placeholder="John Smith"></div><div class="fg"><label>Email</label><input type="email" name="email" required placeholder="john@example.com"></div></div>
+                <div class="fr"><div class="fg"><label>Business Name</label><input type="text" name="business" placeholder="Your business"></div><div class="fg"><label>Package</label><select name="package"><option value="starter">Starter -- $299</option><option value="professional" selected>Professional -- $499</option><option value="enterprise">Enterprise -- $799</option></select></div></div>
+                <div class="fg"><label>What's the plan for?</label><select name="purpose"><option value="">Select purpose...</option><option>Bank loan</option><option>Investor pitch</option><option>Visa application</option><option>Government grant</option><option>Internal strategy</option><option>Other</option></select></div>
+                <div class="fg"><label>Tell us about your business</label><textarea name="details" placeholder="Brief description and any specific requirements..."></textarea></div>
+                <button type="submit" class="fsub">Send Inquiry</button>
+                <p class="fnote">We'll respond within 4 hours with next steps.</p>
             </form>
         </div>
     </div>
 </section>
 
 <!-- FINAL CTA -->
-<section class="final-cta">
-    <div class="container reveal">
+<section class="fcta">
+    <div class="wrap" data-r>
         <h2>Stop Procrastinating.<br>Start Closing.</h2>
         <p>Your business plan is the difference between "maybe" and "approved."</p>
-        <a href="#contact" class="btn-primary">Get Your Plan Now <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+        <a href="#contact" class="bp">Get Your Plan Now <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
     </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-    <div class="container">
-        <div class="footer-grid">
-            <div class="footer-brand">
-                <div class="logo">Plan<span>Forge</span></div>
-                <p>Professional business plans for Australian entrepreneurs. Written from scratch, delivered fast.</p>
-            </div>
-            <div class="footer-col">
-                <h4>Product</h4>
-                <a href="#features">Features</a>
-                <a href="#pricing">Pricing</a>
-                <a href="#faq">FAQ</a>
-            </div>
-            <div class="footer-col">
-                <h4>Company</h4>
-                <a href="#contact">Contact</a>
-                <a href="mailto:ashtonluca@gmail.com">Email Us</a>
-            </div>
-            <div class="footer-col">
-                <h4>Legal</h4>
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
-                <a href="#">Refund Policy</a>
-            </div>
+    <div class="wrap">
+        <div class="fgrid">
+            <div class="fb"><div class="logo">Plan<b>Forge</b></div><p>Professional business plans for Australian entrepreneurs. Written from scratch, delivered fast.</p></div>
+            <div class="fc"><h4>Product</h4><a href="#features">Features</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></div>
+            <div class="fc"><h4>Company</h4><a href="#contact">Contact</a><a href="mailto:ashtonluca@gmail.com">Email Us</a></div>
+            <div class="fc"><h4>Legal</h4><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Refund Policy</a></div>
         </div>
-        <div class="footer-bottom">
-            <span>2026 PlanForge. Brisbane, Australia.</span>
-            <a href="mailto:ashtonluca@gmail.com">ashtonluca@gmail.com</a>
-        </div>
+        <div class="fbot"><span>2026 PlanForge. Brisbane, Australia.</span><a href="mailto:ashtonluca@gmail.com">ashtonluca@gmail.com</a></div>
     </div>
 </footer>
 
 <script>
-// Nav scroll
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 50));
-
-// Reveal on scroll
-const obs = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-
-// FAQ
-document.querySelectorAll('.faq-q').forEach(q => {
-    q.addEventListener('click', () => {
-        const item = q.parentElement;
-        document.querySelectorAll('.faq-item').forEach(i => { if (i !== item) i.classList.remove('open'); });
-        item.classList.toggle('open');
-    });
-});
-
-// Smooth scroll
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-        e.preventDefault();
-        const t = document.querySelector(a.getAttribute('href'));
-        if (t) window.scrollTo({ top: t.getBoundingClientRect().top + window.pageYOffset - 72, behavior: 'smooth' });
-    });
-});
-
-// Form
-document.getElementById('contactForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const d = new FormData(this);
-    const s = encodeURIComponent('PlanForge Inquiry -- ' + (d.get('business') || 'New Client'));
-    const b = encodeURIComponent('Name: ' + d.get('name') + '\nEmail: ' + d.get('email') + '\nBusiness: ' + d.get('business') + '\nPackage: ' + d.get('package') + '\nPurpose: ' + d.get('purpose') + '\n\nDetails:\n' + d.get('details'));
-    window.location.href = 'mailto:ashtonluca@gmail.com?subject=' + s + '&body=' + b;
-});
+const h=document.getElementById('hd');
+window.addEventListener('scroll',()=>h.classList.toggle('s',scrollY>40));
+const o=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('v')}),{threshold:.06,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('[data-r]').forEach(el=>o.observe(el));
+document.querySelectorAll('.fq-q').forEach(q=>q.addEventListener('click',()=>{const p=q.parentElement;document.querySelectorAll('.fq').forEach(f=>{if(f!==p)f.classList.remove('o')});p.classList.toggle('o')}));
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)window.scrollTo({top:t.getBoundingClientRect().top+pageYOffset-68,behavior:'smooth'})}));
+document.getElementById('cf').addEventListener('submit',function(e){e.preventDefault();const d=new FormData(this);window.location.href='mailto:ashtonluca@gmail.com?subject='+encodeURIComponent('PlanForge -- '+(d.get('business')||'New'))+'&body='+encodeURIComponent('Name: '+d.get('name')+'\nEmail: '+d.get('email')+'\nBusiness: '+d.get('business')+'\nPackage: '+d.get('package')+'\nPurpose: '+d.get('purpose')+'\n\n'+d.get('details'))});
 </script>
 </body>
 </html>
