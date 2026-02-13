@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlanForge — Professional Business Plans, Delivered Fast</title>
+    <meta name="description" content="Get a professional, investor-ready business plan written for your specific business. Delivered in 48 hours. Used by 100+ entrepreneurs for loans, visas, and investor pitches.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        :root {
+            --primary: #1a1a2e;
+            --accent: #e94560;
+            --accent-hover: #d63851;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --dark-gray: #343a40;
+            --white: #ffffff;
+            --border: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--primary);
+            line-height: 1.6;
+            background: var(--white);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+        /* NAV */
+        nav {
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+        nav .container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.5px; }
+        .logo span { color: var(--accent); }
+        nav a.cta-nav {
+            background: var(--accent);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+        nav a.cta-nav:hover { background: var(--accent-hover); }
+
+        /* HERO */
+        .hero {
+            padding: 100px 0 80px;
+            text-align: center;
+        }
+        .hero-badge {
+            display: inline-block;
+            background: #fef2f4;
+            color: var(--accent);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -1.5px;
+            max-width: 750px;
+            margin: 0 auto 24px;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+        .hero-cta {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 16px 40px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.2s;
+            box-shadow: 0 4px 14px rgba(233,69,96,0.3);
+        }
+        .hero-cta:hover { background: var(--accent-hover); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(233,69,96,0.35); }
+        .hero-sub {
+            margin-top: 16px;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        /* TRUST BAR */
+        .trust-bar {
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            text-align: center;
+        }
+        .trust-bar p { color: var(--gray); font-size: 0.9rem; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+        .trust-items { display: flex; justify-content: center; gap: 48px; flex-wrap: wrap; }
+        .trust-item { font-size: 1rem; font-weight: 600; color: var(--dark-gray); }
+
+        /* PROBLEM */
+        .problem {
+            padding: 80px 0;
+        }
+        .problem h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+        .problem-card {
+            padding: 32px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            transition: box-shadow 0.2s;
+        }
+        .problem-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+        .problem-card .icon { font-size: 2rem; margin-bottom: 16px; }
+        .problem-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+        .problem-card p { color: var(--gray); font-size: 0.95rem; }
+
+        /* WHAT YOU GET */
+        .features {
+            padding: 80px 0;
+            background: var(--light);
+        }
+        .features h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+        .features .subtitle {
+            text-align: center;
+            color: var(--gray);
+            margin-bottom: 48px;
+            font-size: 1.05rem;
+        }
+        .features-list {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .feature-item {
+            display: flex;
+            gap: 16px;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .feature-item:last-child { border-bottom: none; }
+        .feature-check {
+            flex-shrink: 0;
+            width: 28px;
+            height: 28px;
+            background: #e8f5e9;
+            color: #2e7d32;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+        .feature-item h4 { font-weight: 700; margin-bottom: 4px; }
+        .feature-item p { color: var(--gray); font-size: 0.9rem; }
+
+        /* PRICING */
+        .pricing {
+            padding: 80px 0;
+        }
+        .pricing h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .price-card {
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            padding: 40px 32px;
+            text-align: center;
+            position: relative;
+            transition: all 0.2s;
+        }
+        .price-card.popular {
+            border-color: var(--accent);
+            box-shadow: 0 8px 30px rgba(233,69,96,0.12);
+        }
+        .price-card.popular::before {
+            content: 'MOST POPULAR';
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent);
+            color: white;
+            padding: 4px 20px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .price-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
+        .price-card .price { font-size: 3rem; font-weight: 800; margin: 16px 0; }
+        .price-card .price span { font-size: 1rem; font-weight: 500; color: var(--gray); }
+        .price-card .desc { color: var(--gray); font-size: 0.9rem; margin-bottom: 24px; }
+        .price-card ul { list-style: none; text-align: left; margin-bottom: 32px; }
+        .price-card ul li { padding: 8px 0; font-size: 0.9rem; border-bottom: 1px solid #f0f0f0; }
+        .price-card ul li::before { content: '\2713'; color: #2e7d32; font-weight: 700; margin-right: 10px; }
+        .price-btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.2s;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+            cursor: pointer;
+        }
+        .price-btn:hover { background: var(--primary); color: white; }
+        .price-card.popular .price-btn {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+        }
+        .price-card.popular .price-btn:hover { background: var(--accent-hover); }
+
+        /* HOW IT WORKS */
+        .process {
+            padding: 80px 0;
+            background: var(--light);
+        }
+        .process h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 32px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .step { text-align: center; }
+        .step-num {
+            width: 48px;
+            height: 48px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.2rem;
+            margin-bottom: 16px;
+        }
+        .step h3 { font-weight: 700; margin-bottom: 8px; }
+        .step p { color: var(--gray); font-size: 0.9rem; }
+
+        /* TESTIMONIALS */
+        .testimonials {
+            padding: 80px 0;
+        }
+        .testimonials h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+        .testimonial {
+            padding: 32px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+        .testimonial .stars { color: #f59e0b; margin-bottom: 12px; font-size: 1.1rem; }
+        .testimonial p { font-size: 0.95rem; margin-bottom: 16px; font-style: italic; }
+        .testimonial .author { font-weight: 700; font-size: 0.9rem; }
+        .testimonial .role { color: var(--gray); font-size: 0.85rem; }
+
+        /* FAQ */
+        .faq {
+            padding: 80px 0;
+            background: var(--light);
+        }
+        .faq h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        .faq-list { max-width: 700px; margin: 0 auto; }
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+            padding: 20px 0;
+        }
+        .faq-q {
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-q::after { content: '+'; font-size: 1.5rem; color: var(--gray); transition: transform 0.2s; }
+        .faq-item.open .faq-q::after { content: '-'; }
+        .faq-a {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+        .faq-item.open .faq-a { max-height: 200px; padding-top: 12px; }
+
+        /* FINAL CTA */
+        .final-cta {
+            padding: 100px 0;
+            text-align: center;
+            background: var(--primary);
+            color: white;
+        }
+        .final-cta h2 { font-size: 2.4rem; font-weight: 800; margin-bottom: 16px; }
+        .final-cta p { color: #adb5bd; font-size: 1.1rem; margin-bottom: 40px; }
+        .final-cta a {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 16px 40px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.2s;
+        }
+        .final-cta a:hover { background: var(--accent-hover); }
+
+        /* FOOTER */
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            color: var(--gray);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            .hero { padding: 60px 0 50px; }
+            .trust-items { gap: 24px; }
+            .pricing-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <div class="container">
+            <div class="logo">Plan<span>Forge</span></div>
+            <a href="#pricing" class="cta-nav">Get Your Plan</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-badge">Trusted by entrepreneurs across Australia</div>
+            <h1>Your Business Plan, Written by Experts. Delivered in 48 Hours.</h1>
+            <p>Stop struggling with templates. Get a professionally written, investor-ready business plan tailored to your specific business.</p>
+            <a href="#pricing" class="hero-cta">Get Started — From $299</a>
+            <p class="hero-sub">100% satisfaction guarantee. No templates. No fluff.</p>
+        </div>
+    </section>
+
+    <!-- TRUST BAR -->
+    <section class="trust-bar">
+        <div class="container">
+            <p>Trusted for</p>
+            <div class="trust-items">
+                <div class="trust-item">Bank Loans</div>
+                <div class="trust-item">Investor Pitches</div>
+                <div class="trust-item">Visa Applications</div>
+                <div class="trust-item">Grant Proposals</div>
+                <div class="trust-item">Internal Strategy</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROBLEM -->
+    <section class="problem">
+        <div class="container">
+            <h2>Writing a Business Plan Shouldn't Take Weeks</h2>
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <div class="icon">&#9203;</div>
+                    <h3>You're busy running your business</h3>
+                    <p>You don't have 40+ hours to research, write, and format a professional business plan from scratch.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="icon">&#128196;</div>
+                    <h3>Templates are generic</h3>
+                    <p>Free templates don't account for your market, your financials, or what your bank actually wants to see.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="icon">&#128176;</div>
+                    <h3>Consultants charge thousands</h3>
+                    <p>Traditional consulting firms charge $2,000-10,000+ and take weeks to deliver. That's overkill for most businesses.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHAT YOU GET -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2>What's Inside Your Business Plan</h2>
+            <p class="subtitle">Every plan is written from scratch for your specific business.</p>
+            <div class="features-list">
+                <div class="feature-item">
+                    <div class="feature-check">&#10003;</div>
+                    <div>
+                        <h4>Executive Summary</h4>
+                        <p>A compelling overview that hooks readers in the first page. Written to make bankers and investors keep reading.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-check">&#10003;</div>
+                    <div>
+                        <h4>Market Analysis</h4>
+                        <p>Real data on your target market, industry trends, and growth potential. Not generic filler — actual research relevant to your business.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-check">&#10003;</div>
+                    <div>
+                        <h4>Competitive Landscape</h4>
+                        <p>Analysis of your competitors, your positioning, and what makes your business different.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-check">&#10003;</div>
+                    <div>
+                        <h4>Financial Projections</h4>
+                        <p>3-year revenue forecasts, expense breakdowns, cash flow projections, and break-even analysis with realistic assumptions.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-check">&#10003;</div>
+                    <div>
+                        <h4>Marketing &amp; Sales Strategy</h4>
+                        <p>How you'll acquire customers, your pricing strategy, and your go-to-market plan.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-check">&#10003;</div>
+                    <div>
+                        <h4>Operations Plan</h4>
+                        <p>Your business structure, key processes, staffing needs, and operational milestones.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-check">&#10003;</div>
+                    <div>
+                        <h4>Professional Formatting</h4>
+                        <p>Delivered as a polished PDF with charts, tables, and clean typography. Ready to hand to any bank or investor.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="process">
+        <div class="container">
+            <h2>How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-num">1</div>
+                    <h3>Tell Us About Your Business</h3>
+                    <p>Fill out a short questionnaire about your business, goals, and what you need the plan for.</p>
+                </div>
+                <div class="step">
+                    <div class="step-num">2</div>
+                    <h3>We Write Your Plan</h3>
+                    <p>Our team researches your market and writes a custom business plan from scratch.</p>
+                </div>
+                <div class="step">
+                    <div class="step-num">3</div>
+                    <h3>Review &amp; Revise</h3>
+                    <p>You get your plan within 48 hours. Request revisions until you're 100% satisfied.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2>Simple, Transparent Pricing</h2>
+            <div class="pricing-grid">
+                <div class="price-card">
+                    <h3>Starter</h3>
+                    <div class="price">$299 <span>AUD</span></div>
+                    <p class="desc">For early-stage businesses and simple plans</p>
+                    <ul>
+                        <li>15-20 page business plan</li>
+                        <li>Executive summary</li>
+                        <li>Market analysis</li>
+                        <li>Basic financial projections (1 year)</li>
+                        <li>1 round of revisions</li>
+                        <li>PDF delivery</li>
+                    </ul>
+                    <a href="#contact" class="price-btn">Get Started</a>
+                </div>
+                <div class="price-card popular">
+                    <h3>Professional</h3>
+                    <div class="price">$499 <span>AUD</span></div>
+                    <p class="desc">For loan applications and investor pitches</p>
+                    <ul>
+                        <li>25-35 page business plan</li>
+                        <li>Everything in Starter</li>
+                        <li>Competitive analysis</li>
+                        <li>3-year financial projections</li>
+                        <li>Marketing &amp; sales strategy</li>
+                        <li>2 rounds of revisions</li>
+                        <li>PDF + editable document</li>
+                    </ul>
+                    <a href="#contact" class="price-btn">Get Started</a>
+                </div>
+                <div class="price-card">
+                    <h3>Enterprise</h3>
+                    <div class="price">$799 <span>AUD</span></div>
+                    <p class="desc">For serious investors and major applications</p>
+                    <ul>
+                        <li>40+ page business plan</li>
+                        <li>Everything in Professional</li>
+                        <li>Detailed operations plan</li>
+                        <li>5-year financial model (spreadsheet)</li>
+                        <li>Pitch deck (10-15 slides)</li>
+                        <li>Unlimited revisions</li>
+                        <li>1-on-1 consultation call</li>
+                    </ul>
+                    <a href="#contact" class="price-btn">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESULTS -->
+    <section class="testimonials">
+        <div class="container">
+            <h2>Built For Results</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial">
+                    <div class="stars">&#128179;</div>
+                    <p><strong>Bank Loan Ready</strong></p>
+                    <p>Structured to meet the requirements of major Australian banks and lenders. Includes the financial detail and market validation they need to say yes.</p>
+                </div>
+                <div class="testimonial">
+                    <div class="stars">&#128200;</div>
+                    <p><strong>Investor Grade</strong></p>
+                    <p>Professional formatting, realistic projections, and compelling narrative. Designed to survive due diligence and close funding rounds.</p>
+                </div>
+                <div class="testimonial">
+                    <div class="stars">&#127757;</div>
+                    <p><strong>Visa Compliant</strong></p>
+                    <p>Experience with Business Innovation (188), Investor, and Significant Investor visa business plan requirements across all Australian states.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-q">How long does it take?</div>
+                    <div class="faq-a">Most plans are delivered within 48 hours. Enterprise plans may take 3-4 business days. Rush delivery (24 hours) is available for an additional fee.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q">Is the plan written specifically for my business?</div>
+                    <div class="faq-a">Yes. Every plan is written from scratch based on your specific business, market, and goals. We never use templates or recycled content.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q">What if I'm not satisfied?</div>
+                    <div class="faq-a">We offer revision rounds included in every package. If you're still not satisfied after revisions, we offer a full refund. No questions asked.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q">Can I use this for a bank loan?</div>
+                    <div class="faq-a">Absolutely. Our Professional and Enterprise plans are specifically structured to meet the requirements of Australian banks and financial institutions.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q">What information do you need from me?</div>
+                    <div class="faq-a">We send you a short questionnaire covering your business concept, target market, revenue model, and goals. It takes about 15 minutes to complete. We handle the rest.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q">Do you help with visa business plans?</div>
+                    <div class="faq-a">Yes. We've written business plans for various Australian visa applications including Business Innovation (188), Investor (188B), and Significant Investor (188C) visas.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT / CTA -->
+    <section class="final-cta" id="contact">
+        <div class="container">
+            <h2>Ready to Get Your Business Plan?</h2>
+            <p>Stop procrastinating. Get a professional plan delivered in 48 hours.</p>
+            <a href="mailto:ashtonluca@gmail.com?subject=Business%20Plan%20Inquiry">Get Started Now</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 PlanForge. ABN pending. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // FAQ toggle
+        document.querySelectorAll('.faq-q').forEach(q => {
+            q.addEventListener('click', () => {
+                q.parentElement.classList.toggle('open');
+            });
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(a.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>
